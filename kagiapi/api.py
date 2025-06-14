@@ -26,8 +26,8 @@ class KagiClient:
         self.session = requests.Session()
         self.session.headers.update({"Authorization": f"Bot {self.api_key}"})
 
-    def search(self, query: str, limit: int = 10) -> SearchResponse:
-        params: Dict[str, Union[int, str]] = {"q": query, "limit": limit}
+    def search(self, query: str, limit: int = 10, **kwargs) -> SearchResponse:
+        params: Dict[str, Union[int, str]] = {"q": query, "limit": limit} | kwargs
 
         response = self.session.get(KagiClient.BASE_URL + "/search", params=params)
         response.raise_for_status()
